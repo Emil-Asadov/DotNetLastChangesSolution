@@ -15,6 +15,7 @@ namespace MagicNumbersAndStrings
             Console.WriteLine($"Result:{(char)13}{(char)10}{res}");
 
             Console.WriteLine();
+            Console.WriteLine();
 
             IOrderRepository clsMagic = new OrderRepositoryWithMagic();
             res = clsMagic.ProccessOrder(new Order
