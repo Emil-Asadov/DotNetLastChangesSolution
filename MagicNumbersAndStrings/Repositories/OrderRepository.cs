@@ -14,7 +14,9 @@ namespace MagicNumbersAndStrings.Repositories
             if (ord.Amount > 1000)
                 ord.Discount = ord.Amount * 0.1m;//0.1m- Magic numbers
 
-            return ord.Status = "Processing";//"Processing"- Magic strings
+            ord.StatusTxt = "Processing";//"Processing"- Magic strings
+
+            return ord.StatusTxt;
         }
     }
 }

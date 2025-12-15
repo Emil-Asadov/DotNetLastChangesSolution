@@ -12,7 +12,17 @@ namespace MagicNumbersAndStrings
             {
                 Amount = 1500
             });
-            Console.WriteLine($"Result: {res}");
+            Console.WriteLine($"Result:{(char)13}{(char)10}{res}");
+
+            Console.WriteLine();
+
+            IOrderRepository clsMagic = new OrderRepositoryWithMagic();
+            res = clsMagic.ProccessOrder(new Order
+            {
+                Amount = 1500
+            });
+            Console.WriteLine($"Result(Magic):{(char)13}{(char)10}{res}");
+
             Console.ReadKey();
         }
     }
