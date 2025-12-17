@@ -7,22 +7,22 @@ namespace MagicNumbersAndStrings
     {
         static void Main(string[] args)
         {
-            IOrderRepository cls = new OrderRepository();
-            var res = cls.ProccessOrder(new Order
-            {
-                Amount = 1500
-            });
-            Console.WriteLine($"Result:{(char)13}{(char)10}{res}");
-
-            Console.WriteLine();
-            Console.WriteLine();
-
             IOrderRepository clsMagic = new OrderRepositoryWithMagic();
-            res = clsMagic.ProccessOrder(new Order
+            var res = clsMagic.ProccessOrder(new Order
             {
                 Amount = 1500
             });
             Console.WriteLine($"Result(Magic):{(char)13}{(char)10}{res}");
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            IOrderRepository cls = new OrderRepositoryWithoutMagic();
+            res = cls.ProccessOrder(new Order
+            {
+                Amount = 1500
+            });
+            Console.WriteLine($"Result:{(char)13}{(char)10}{res}");
 
             Console.ReadKey();
         }
