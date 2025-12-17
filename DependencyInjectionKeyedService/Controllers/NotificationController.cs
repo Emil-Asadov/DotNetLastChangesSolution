@@ -1,25 +1,25 @@
 ﻿using DependencyInjectionKeyedService.KeyedService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DependencyInjectionKeyedService.Controllers
 {
-    public class HomeController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class NotificationController : ControllerBase
     {
         #region DIKeyed
         private readonly INotificationKeyedService _emailNotificationKeyedService;
         private readonly INotificationKeyedService _smsNotificationKeyedService;
         private readonly INotificationKeyedService _pushNotificationKeyedService;
-        public HomeController([FromKeyedServices("email")] INotificationKeyedService emailNotificationKeyedService, [FromKeyedServices("sms")] INotificationKeyedService smsNotificationKeyedService, [FromKeyedServices("push")] INotificationKeyedService pushNotificationKeyedService)
+        #endregion
+        public NotificationController([FromKeyedServices("email")] INotificationKeyedService emailNotificationKeyedService, [FromKeyedServices("sms")] INotificationKeyedService smsNotificationKeyedService, [FromKeyedServices("push")] INotificationKeyedService pushNotificationKeyedService)
         {
             _emailNotificationKeyedService = emailNotificationKeyedService;
             _smsNotificationKeyedService = smsNotificationKeyedService;
             _pushNotificationKeyedService = pushNotificationKeyedService;
         }
-        #endregion
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         [HttpGet]
         [Route("GetSmsKeyedNotification")]
         public IActionResult GetSmsKeyedNotification()
