@@ -1,4 +1,4 @@
-
+using DependencyInjectionKeyedService.Enums;
 using DependencyInjectionKeyedService.KeyedService;
 using DependencyInjectionKeyedService.WithoutKeyedService;
 
@@ -22,11 +22,10 @@ namespace DependencyInjectionKeyedService
             builder.Services.AddSingleton<INotificationService, SmsNotificationService>();
             builder.Services.AddSingleton<INotificationService, PushNotificationService>();
             #endregion
-
             #region DIContainerKeyedService
-            builder.Services.AddKeyedSingleton<INotificationKeyedService, EmailNotificationKeyedService>("email");
-            builder.Services.AddKeyedSingleton<INotificationKeyedService, SmsNotificationKeyedService>("sms");
-            builder.Services.AddKeyedSingleton<INotificationKeyedService, PushNotificationKeyedService>("push");
+            builder.Services.AddKeyedSingleton<INotificationKeyedService, EmailNotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Email);
+            builder.Services.AddKeyedSingleton<INotificationKeyedService, SmsNotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Sms);
+            builder.Services.AddKeyedSingleton<INotificationKeyedService, PushNotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Push);
             #endregion
 
             var app = builder.Build();
