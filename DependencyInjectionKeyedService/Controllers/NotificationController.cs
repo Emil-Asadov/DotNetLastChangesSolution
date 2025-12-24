@@ -1,4 +1,5 @@
-﻿using DependencyInjectionKeyedService.KeyedService;
+﻿using DependencyInjectionKeyedService.Enums;
+using DependencyInjectionKeyedService.KeyedService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +14,11 @@ namespace DependencyInjectionKeyedService.Controllers
         private readonly INotificationKeyedService _smsNotificationKeyedService;
         private readonly INotificationKeyedService _pushNotificationKeyedService;
         #endregion
-        public NotificationController([FromKeyedServices("email")] INotificationKeyedService emailNotificationKeyedService, [FromKeyedServices("sms")] INotificationKeyedService smsNotificationKeyedService, [FromKeyedServices("push")] INotificationKeyedService pushNotificationKeyedService)
+        public NotificationController(IServiceProvider serviceProvider)
         {
-            _emailNotificationKeyedService = emailNotificationKeyedService;
-            _smsNotificationKeyedService = smsNotificationKeyedService;
-            _pushNotificationKeyedService = pushNotificationKeyedService;
+            _emailNotificationKeyedService = serviceProvider.GetRequiredKeyedService<INotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Email);
+            _smsNotificationKeyedService = serviceProvider.GetRequiredKeyedService<INotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Sms);
+            _pushNotificationKeyedService = serviceProvider.GetRequiredKeyedService<INotificationKeyedService>(KeyedNotificationsType.KeyedNotification.Push);
         }
 
         [HttpGet]
