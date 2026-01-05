@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsAppDotNetFramew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpKeywords", "CsharpKeywords\CsharpKeywords.csproj", "{1B7A483C-B9CE-47C4-A57A-9384D4214F8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscardParameters", "DiscardParameters\DiscardParameters.csproj", "{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1B7A483C-B9CE-47C4-A57A-9384D4214F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B7A483C-B9CE-47C4-A57A-9384D4214F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B7A483C-B9CE-47C4-A57A-9384D4214F8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
