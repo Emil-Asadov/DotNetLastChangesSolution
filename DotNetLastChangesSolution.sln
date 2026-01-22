@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpKeywords", "CsharpKey
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscardParameters", "DiscardParameters\DiscardParameters.csproj", "{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAnnotations_FluentValidation", "DataAnnotations_FluentValidation\DataAnnotations_FluentValidation.csproj", "{540AAAA5-5E52-4586-B319-D71953DD80E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F914DC2-FF6C-4A38-9DA8-62A2EF094EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{540AAAA5-5E52-4586-B319-D71953DD80E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{540AAAA5-5E52-4586-B319-D71953DD80E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{540AAAA5-5E52-4586-B319-D71953DD80E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{540AAAA5-5E52-4586-B319-D71953DD80E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
