@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAnnotations_FluentValidation.Models.FluentValidation
+namespace DataAnnotations_FluentValidation.Models.FluentValidation.Entities
 {
     public class Customer
     {

@@ -1,6 +1,8 @@
 ﻿using DataAnnotations_FluentValidation.Models;
 using DataAnnotations_FluentValidation.Models.DataAnnotations;
+using DataAnnotations_FluentValidation.Models.DataAnnotations.Entities;
 using DataAnnotations_FluentValidation.Models.FluentValidation;
+using DataAnnotations_FluentValidation.Models.FluentValidation.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 

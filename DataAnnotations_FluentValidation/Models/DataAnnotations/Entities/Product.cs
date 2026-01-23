@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAnnotations_FluentValidation.Models.DataAnnotations
+namespace DataAnnotations_FluentValidation.Models.DataAnnotations.Entities
 {
     public class Product
     {
