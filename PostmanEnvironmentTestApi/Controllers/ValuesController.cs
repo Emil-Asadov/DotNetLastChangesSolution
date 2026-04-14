@@ -36,8 +36,9 @@ namespace PostmanEnvironmentTestApi.Controllers
                 return NotFound();
 
             res = currentDate.Equals(DateTime.Now.Date);
+            var jsonResult = new JsonResult(res);
 
-            return Ok(res);
+            return Ok(jsonResult);
         }
     }
 }
