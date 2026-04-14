@@ -24,6 +24,15 @@ namespace PropertyPattern
             if (cls is { Role: "Admin", Age: > 21 })
                 Console.WriteLine("Grant admin access(Property Pattern)");
             #endregion
+
+            MainClass mainClass = new();
+            mainClass.SubProp = new();
+
+            if (mainClass.SubProp is { ErrorCode: 0 })
+                Console.WriteLine("hdhhdhdhd");
+
+            if (mainClass.SubProp is { ErrorCode: not null and not 0 })
+                Console.WriteLine("hdhhdhdhd");
         }
     }
 }
