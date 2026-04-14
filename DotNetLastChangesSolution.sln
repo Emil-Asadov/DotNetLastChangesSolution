@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjectionType", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CancellationTokenUse", "CancellationTokenUse\CancellationTokenUse.csproj", "{7A0D6529-F080-41D3-B246-01980E009EEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostmanEnvironmentTestApi", "PostmanEnvironmentTestApi\PostmanEnvironmentTestApi.csproj", "{27305635-EA34-47D8-90AD-CBF54DC40E02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{7A0D6529-F080-41D3-B246-01980E009EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A0D6529-F080-41D3-B246-01980E009EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A0D6529-F080-41D3-B246-01980E009EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27305635-EA34-47D8-90AD-CBF54DC40E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27305635-EA34-47D8-90AD-CBF54DC40E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27305635-EA34-47D8-90AD-CBF54DC40E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27305635-EA34-47D8-90AD-CBF54DC40E02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
