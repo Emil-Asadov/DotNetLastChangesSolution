@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostmanEnvironmentTestApi",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwentyRulesWriteCleanerDotNetCode", "TwentyRulesWriteCleanerDotNetCode\TwentyRulesWriteCleanerDotNetCode.csproj", "{FA857A22-F799-40BB-A047-1B9C822CA94C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIMiddlewareLog", "APIMiddlewareLog\APIMiddlewareLog.csproj", "{3C36454F-2032-44DC-819F-EC3DF445B85D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{FA857A22-F799-40BB-A047-1B9C822CA94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA857A22-F799-40BB-A047-1B9C822CA94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA857A22-F799-40BB-A047-1B9C822CA94C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C36454F-2032-44DC-819F-EC3DF445B85D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C36454F-2032-44DC-819F-EC3DF445B85D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C36454F-2032-44DC-819F-EC3DF445B85D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C36454F-2032-44DC-819F-EC3DF445B85D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

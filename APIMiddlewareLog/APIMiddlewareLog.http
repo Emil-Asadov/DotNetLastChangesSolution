@@ -1,0 +1,6 @@
+@APIMiddlewareLog_HostAddress = http://localhost:5147
+
+GET {{APIMiddlewareLog_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
