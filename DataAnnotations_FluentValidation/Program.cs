@@ -39,12 +39,14 @@ namespace DataAnnotations_FluentValidation
                     }
                 }
                 #endregion
+
                 Console.WriteLine("****************************************************");
+
                 #region FluentValidation
                 Console.WriteLine("FluentValidation:");
                 Customer cust = new()
                 {
-                    FirstName = "",
+                    FirstName = "D",
                     LastName = "",
                     Email = "kk.ssgmail.com",
                     Address = "hhhhhh"

@@ -12,7 +12,7 @@ namespace DataAnnotations_FluentValidation.Models.FluentValidation
     {
         public CustomerValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().WithMessage("{PropertyName} sahəsi boş ola bilməz");
+            RuleFor(x => x.FirstName).NotEmpty().WithMessage("{PropertyName} sahəsi boş ola bilməz").Length(2, 30).WithMessage("{PropertyName} sahəsi minimum {MinLength} maksimum {MaxLength} simvol arasında olmalıdır");
 
             RuleFor(x => x.LastName).NotEmpty().WithMessage("{PropertyName} sahəsi boş ola bilməz");
 
