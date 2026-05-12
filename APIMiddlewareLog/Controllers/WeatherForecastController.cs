@@ -1,5 +1,8 @@
 using APIMiddlewareLog.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Xml;
 
 namespace APIMiddlewareLog.Controllers
 {
@@ -42,9 +45,24 @@ namespace APIMiddlewareLog.Controllers
 
         [HttpPost("Create-Employee")]
         //[Route("Create-Employee")]
-        public IActionResult CreateEmployee([FromBody] EmployeeJson employee)
+        public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            return Ok("Employee created");
+            var response = new JsonResult(new { message = "Employee created" })
+            {
+                ContentType = "application/json",
+                SerializerSettings = new JsonSerializerSettings
+                {
+                    Formatting = Newtonsoft.Json.Formatting.Indented // pretty JSON
+                },
+                StatusCode = 200
+            };
+
+            var jsonResponse = new
+            {
+                message = "Employee created"
+            };
+
+            return Ok(jsonResponse);
         }
     }
 }

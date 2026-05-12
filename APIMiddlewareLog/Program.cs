@@ -1,5 +1,7 @@
 
+using APIMiddlewareLog.Extensions;
 using APIMiddlewareLog.Middleware;
+using NLog.Web;
 
 namespace APIMiddlewareLog
 {
@@ -16,7 +18,16 @@ namespace APIMiddlewareLog
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //builder.Services.AddScoped<LogDB>();
+            #region Dependency Injection
+            //builder.Services.AddScoped<RequestResponseMiddleware>();
+            builder.Services.DIExtensions(); //Use Extension method
+            #endregion
+
+            #region Write_Log
+            builder.Logging.ClearProviders();
+            //builder.Logging.SetMinimumLevel(LogLevel.Trace);
+            builder.Host.UseNLog();
+            #endregion
 
 
             var app = builder.Build();
@@ -31,7 +42,10 @@ namespace APIMiddlewareLog
 
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<RequestResponseMiddleware>();
+            #region Middleware
+            //app.UseMiddleware<RequestResponseMiddleware>();
+            app.APPBuilderExtensions();
+            #endregion
 
             app.UseAuthorization();
 
