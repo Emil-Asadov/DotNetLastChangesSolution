@@ -1,4 +1,5 @@
 using MinimalAPIRoutingRequest;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -15,7 +16,14 @@ app.MapMethods("options-or-head", new[] { "HEAD", "OPTIONS" }, () => "These are 
 var handler = () => "This is coming from var";
 app.MapGet("handler", handler);
 
-app.MapGet("from-class-with-param", () => Example.SomeMethodWithoutParameter());
-app.MapGet("from-class-without-param", (string p) => Example.SomeMethodWithParameter(p));
+app.MapGet("from-class-without-param", () => Example.SomeMethodWithoutParameter());
+app.MapGet("from-class-without-param-new", Example.SomeMethodWithoutParameterNew);
+app.MapGet("from-class-with-param", (string p) => Example.SomeMethodWithParameter(p));
+app.MapGet("get-params/{age}", (int age) => new StringBuilder("Age provided was").Append((char)32).Append(age).ToString());
+app.MapGet("get-params-new/{age:int}", (int age) => new StringBuilder("Age provided was new").Append((char)32).Append(age).ToString());
+
+app.MapGet("cars/{carId:regex(^[a-z0-9]+$)}", (string carId) => new StringBuilder("Car provided was:").Append((char)32).Append(carId).ToString());
+app.MapGet("books/{bookId:length(5)}", (string bookId) => new StringBuilder("Book provided was:").Append((char)32).Append(bookId).ToString());
+app.MapGet("students/{studentId:length(5):regex(^[a-z0-9]+$)}", (string studentId) => new StringBuilder("Student provided was:").Append((char)32).Append(studentId).ToString());
 
 app.Run();
