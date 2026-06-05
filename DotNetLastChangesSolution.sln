@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIDifferentReturnTy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIRoutingRequest", "MinimalAPIRoutingRequest\MinimalAPIRoutingRequest.csproj", "{6D72A5DE-DD50-416E-B70B-D9BA22B3B700}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIParameterBinding", "MinimalAPIParameterBinding\MinimalAPIParameterBinding.csproj", "{78039AD0-D5CF-45CB-AA44-37A51F5BEA9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{6D72A5DE-DD50-416E-B70B-D9BA22B3B700}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D72A5DE-DD50-416E-B70B-D9BA22B3B700}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D72A5DE-DD50-416E-B70B-D9BA22B3B700}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78039AD0-D5CF-45CB-AA44-37A51F5BEA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78039AD0-D5CF-45CB-AA44-37A51F5BEA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78039AD0-D5CF-45CB-AA44-37A51F5BEA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78039AD0-D5CF-45CB-AA44-37A51F5BEA9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
