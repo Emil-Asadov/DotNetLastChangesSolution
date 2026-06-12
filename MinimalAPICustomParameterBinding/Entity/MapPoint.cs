@@ -9,11 +9,11 @@
         {
             try
             {
-                var splitValue = value?.Split(";").Select(double.Parse).ToArray();                
+                var splitValue = value?.Split(";").Select(double.Parse).ToArray();
                 result = new MapPoint()
                 {
                     X = splitValue![0],
-                    Y = splitValue![1]
+                    Y = splitValue[1]
                 };
                 return true;
             }
@@ -22,6 +22,6 @@
                 result = null;
                 return false;
             }
-        }
+        }        
     }
 }
