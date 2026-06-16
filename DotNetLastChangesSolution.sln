@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPISpecialParameters
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPICustomParameterBinding", "MinimalAPICustomParameterBinding\MinimalAPICustomParameterBinding.csproj", "{0F8D157A-BC1D-4C78-81D4-3A7B06C9D14F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIAvailableResponseTypes", "MinimalAPIAvailableResponseTypes\MinimalAPIAvailableResponseTypes.csproj", "{ED33C65F-D270-492C-BDE5-14701E403D99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{0F8D157A-BC1D-4C78-81D4-3A7B06C9D14F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F8D157A-BC1D-4C78-81D4-3A7B06C9D14F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F8D157A-BC1D-4C78-81D4-3A7B06C9D14F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED33C65F-D270-492C-BDE5-14701E403D99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED33C65F-D270-492C-BDE5-14701E403D99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED33C65F-D270-492C-BDE5-14701E403D99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED33C65F-D270-492C-BDE5-14701E403D99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
