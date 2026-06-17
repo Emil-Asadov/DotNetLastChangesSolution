@@ -1,13 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
-#region MinimalAPI Swagger
-builder.Services.AddEndpointsApiExplorer();//Endpoint-leri gostermek ucun
+#region MinimalAPI Swagger(Endpoint-leri gostermek ucun)
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #endregion
 
 var app = builder.Build();
 
-#region MinimalAPI Swagger
+#region MinimalAPI Use Swagger(Middleware)
 app.UseSwagger();
 app.UseSwaggerUI();
 #endregion

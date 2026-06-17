@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIAvailableResponse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPISwagger", "MinimalAPISwagger\MinimalAPISwagger.csproj", "{80AE32E2-BCFB-4427-942F-070BF3E20422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinimalAPIController", "MinimalAPIController\MinimalAPIController.csproj", "{7A89D446-7C26-42A4-BDD4-5728000D6BFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,10 @@ Global
 		{80AE32E2-BCFB-4427-942F-070BF3E20422}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80AE32E2-BCFB-4427-942F-070BF3E20422}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80AE32E2-BCFB-4427-942F-070BF3E20422}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A89D446-7C26-42A4-BDD4-5728000D6BFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A89D446-7C26-42A4-BDD4-5728000D6BFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A89D446-7C26-42A4-BDD4-5728000D6BFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A89D446-7C26-42A4-BDD4-5728000D6BFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
