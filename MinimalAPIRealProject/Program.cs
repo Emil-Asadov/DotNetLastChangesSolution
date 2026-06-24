@@ -12,13 +12,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 #endregion
 
+#region DI
 builder.Services.Configure<DbConfigRecord>(builder.Configuration.GetSection($"DbConfiguration")); //Prod baza- Prod; Test baza- Test
-
 builder.Services.AddScoped<DbConnect>();
 builder.Services.AddScoped<DbOperation>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
 builder.Services.AddScoped<IOperationService, OperationService>();
-
+#endregion
 
 var app = builder.Build();
 
