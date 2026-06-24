@@ -10,13 +10,6 @@ namespace MinimalAPIRealProject.Service
 {
     public sealed class OperationService(IOperationRepository operationRepository, DbOperation dbOperation) : IOperationService
     {
-        //private readonly OperationRepository _operationRepository;
-        //private readonly DbOperation _dbOperation;
-        //public OperationService(OperationRepository operationRepository, DbOperation dbOperation)
-        //{
-        //    _operationRepository = operationRepository;
-        //    _dbOperation = dbOperation;
-        //}
         public async Task<(Dictionary<int, BookDto> lst, string err)> GetBooksListSrv(CancellationToken cancellationToken)
         {
             Dictionary<int, BookDto> lstOperationId = new();

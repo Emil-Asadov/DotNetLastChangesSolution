@@ -7,11 +7,6 @@ namespace MinimalAPIRealProject.Repository
 {
     public sealed class OperationRepository(DbOperation dbOperation) : IOperationRepository
     {
-        //private readonly DbOperation _dbOperation;
-        //public OperationRepository(DbOperation dbOperation)
-        //{
-        //    _dbOperation = dbOperation;
-        //}
         public async Task<(Dictionary<int, BookResponse> lst, string err)> GetBooksListRepo(CancellationToken cancellationToken)
         {
             var lst = new Dictionary<int, BookResponse>();

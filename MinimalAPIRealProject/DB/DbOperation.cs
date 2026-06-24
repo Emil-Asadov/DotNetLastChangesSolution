@@ -7,13 +7,6 @@ namespace MinimalAPIRealProject.DB
 {
     public sealed class DbOperation(DbConnect dbConnect, IOptions<DbConfigRecord> dbConfigRecord)
     {
-        //private readonly DbConnect _dbConnect;
-        //private readonly DbConfigRecord _dbConfigRecord;
-        //public DbOperation(DbConnect dbConnect, IOptions<DbConfigRecord> dbConfigRecord)
-        //{
-        //    _dbConnect = dbConnect;
-        //    _dbConfigRecord = dbConfigRecord.Value;
-        //}
         private readonly DbConfigRecord _dbConfigRecord = dbConfigRecord.Value;
 
         public async Task<(DataTable dt, string err)> GetData(string query, OracleParameter[]? parameterCollection, CancellationToken cancellationToken)
