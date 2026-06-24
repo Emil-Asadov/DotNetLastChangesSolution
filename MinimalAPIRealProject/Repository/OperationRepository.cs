@@ -5,13 +5,13 @@ using System.Data;
 
 namespace MinimalAPIRealProject.Repository
 {
-    public class OperationRepository
+    public sealed class OperationRepository(DbOperation dbOperation) : IOperationRepository
     {
-        private readonly DbOperation _dbOperation;
-        public OperationRepository(DbOperation dbOperation)
-        {
-            _dbOperation = dbOperation;
-        }
+        //private readonly DbOperation _dbOperation;
+        //public OperationRepository(DbOperation dbOperation)
+        //{
+        //    _dbOperation = dbOperation;
+        //}
         public async Task<(Dictionary<int, BookResponse> lst, string err)> GetBooksListRepo(CancellationToken cancellationToken)
         {
             var lst = new Dictionary<int, BookResponse>();
@@ -27,7 +27,7 @@ namespace MinimalAPIRealProject.Repository
                     Direction = ParameterDirection.ReturnValue
                 };
 
-                (dtOut, errOut) = await _dbOperation.GetData(query, new OracleParameter[] { vRes }, cancellationToken);
+                (dtOut, errOut) = await dbOperation.GetData(query, new OracleParameter[] { vRes }, cancellationToken);
                 if (string.IsNullOrWhiteSpace(errOut))
                 {
                     for (int i = 0; i < dtOut.Rows.Count; i++)
@@ -74,7 +74,7 @@ namespace MinimalAPIRealProject.Repository
                     Value = isbn
                 };
 
-                (dtOut, errOut) = await _dbOperation.GetData(query, new OracleParameter[] { vRes, pOperationID }, cancellationToken);
+                (dtOut, errOut) = await dbOperation.GetData(query, new OracleParameter[] { vRes, pOperationID }, cancellationToken);
                 if (string.IsNullOrWhiteSpace(errOut))
                 {
                     cls = new BookResponse

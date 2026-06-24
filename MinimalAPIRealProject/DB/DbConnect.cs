@@ -3,9 +3,9 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace MinimalAPIRealProject.DB
 {
-    public class DbConnect
+    public sealed class DbConnect
     {
-        public async Task<(OracleConnection? con, string err)> GetConnection(string connectionString,CancellationToken cancellationToken)
+        public async Task<(OracleConnection? con, string err)> GetConnection(string connectionString, CancellationToken cancellationToken)
         {
             OracleConnection? con = null;
             try

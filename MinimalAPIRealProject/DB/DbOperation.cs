@@ -5,24 +5,25 @@ using System.Data;
 
 namespace MinimalAPIRealProject.DB
 {
-    public class DbOperation
+    public sealed class DbOperation(DbConnect dbConnect, IOptions<DbConfigRecord> dbConfigRecord)
     {
-        private readonly DbConnect _dbConnect;
-        private readonly DbConfigRecord _dbConfigRecord;
-        public DbOperation(DbConnect dbConnect, IOptions<DbConfigRecord> dbConfigRecord)
-        {
-            _dbConnect = dbConnect;
-            _dbConfigRecord = dbConfigRecord.Value;
-        }
+        //private readonly DbConnect _dbConnect;
+        //private readonly DbConfigRecord _dbConfigRecord;
+        //public DbOperation(DbConnect dbConnect, IOptions<DbConfigRecord> dbConfigRecord)
+        //{
+        //    _dbConnect = dbConnect;
+        //    _dbConfigRecord = dbConfigRecord.Value;
+        //}
+        private readonly DbConfigRecord _dbConfigRecord = dbConfigRecord.Value;
 
-        public async Task<(DataTable dt, string err)> GetData(string query, OracleParameter[]? parameterCollection,CancellationToken cancellationToken)
+        public async Task<(DataTable dt, string err)> GetData(string query, OracleParameter[]? parameterCollection, CancellationToken cancellationToken)
         {
             var err = string.Empty;
             var dt = new DataTable();
             OracleConnection? con = null;
             try
             {
-                (con, err) = await _dbConnect.GetConnection(_dbConnect.GetConnectionString(_dbConfigRecord),cancellationToken);
+                (con, err) = await dbConnect.GetConnection(dbConnect.GetConnectionString(_dbConfigRecord), cancellationToken);
                 if (!string.IsNullOrWhiteSpace(err))
                     return (dt, err);
                 using (con)
@@ -56,12 +57,12 @@ namespace MinimalAPIRealProject.DB
             return (dt, err);
         }
 
-        public async Task<string> PostData(OracleCommand ocm,CancellationToken cancellationToken)
+        public async Task<string> PostData(OracleCommand ocm, CancellationToken cancellationToken)
         {
             var err = string.Empty;
             try
             {
-                var (conn, connErr) = await _dbConnect.GetConnection(_dbConnect.GetConnectionString(_dbConfigRecord),cancellationToken);
+                var (conn, connErr) = await dbConnect.GetConnection(dbConnect.GetConnectionString(_dbConfigRecord), cancellationToken);
                 if (!string.IsNullOrWhiteSpace(connErr) || conn is null)
                     return connErr;
 

@@ -8,20 +8,20 @@ using System.Globalization;
 
 namespace MinimalAPIRealProject.Service
 {
-    public class OperationService
+    public sealed class OperationService(IOperationRepository operationRepository, DbOperation dbOperation) : IOperationService
     {
-        private readonly OperationRepository _operationRepository;
-        private readonly DbOperation _dbOperation;
-        public OperationService(OperationRepository operationRepository, DbOperation dbOperation)
-        {
-            _operationRepository = operationRepository;
-            _dbOperation = dbOperation;
-        }
+        //private readonly OperationRepository _operationRepository;
+        //private readonly DbOperation _dbOperation;
+        //public OperationService(OperationRepository operationRepository, DbOperation dbOperation)
+        //{
+        //    _operationRepository = operationRepository;
+        //    _dbOperation = dbOperation;
+        //}
         public async Task<(Dictionary<int, BookDto> lst, string err)> GetBooksListSrv(CancellationToken cancellationToken)
         {
             Dictionary<int, BookDto> lstOperationId = new();
             var errOperation = string.Empty;
-            var operationDtoCollection = await _operationRepository.GetBooksListRepo(cancellationToken);
+            var operationDtoCollection = await operationRepository.GetBooksListRepo(cancellationToken);
             errOperation = operationDtoCollection.err;
             if (!string.IsNullOrEmpty(errOperation))
                 return (lstOperationId, errOperation);
@@ -44,7 +44,7 @@ namespace MinimalAPIRealProject.Service
         {
             BookDto cls = null!;
             var errOperation = string.Empty;
-            var operationDtoCollection = await _operationRepository.GetBookRepo(isbn, cancellationToken);
+            var operationDtoCollection = await operationRepository.GetBookRepo(isbn, cancellationToken);
             errOperation = operationDtoCollection.err;
             if (!string.IsNullOrEmpty(errOperation))
                 return (cls, errOperation);
@@ -89,7 +89,7 @@ namespace MinimalAPIRealProject.Service
                 };
                 com.Parameters.Add(pRes);
 
-                errOperation = await _dbOperation.PostData(com, cancellationToken);
+                errOperation = await dbOperation.PostData(com, cancellationToken);
                 if (string.IsNullOrWhiteSpace(errOperation))
                     resOperation = pRes.Value.ToString();
             }
@@ -128,7 +128,7 @@ namespace MinimalAPIRealProject.Service
                 };
                 com.Parameters.Add(pRes);
 
-                errOperation = await _dbOperation.PostData(com, cancellationToken);
+                errOperation = await dbOperation.PostData(com, cancellationToken);
                 if (string.IsNullOrWhiteSpace(errOperation))
                     resOperation = pRes.Value.ToString();
             }
@@ -162,7 +162,7 @@ namespace MinimalAPIRealProject.Service
                 };
                 com.Parameters.Add(pRes);
 
-                errOperation = await _dbOperation.PostData(com, cancellationToken);
+                errOperation = await dbOperation.PostData(com, cancellationToken);
                 if (string.IsNullOrWhiteSpace(errOperation))
                     resOperation = pRes.Value.ToString();
             }
