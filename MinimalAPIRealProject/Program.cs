@@ -35,7 +35,14 @@ app.MapGet("get-all-books", async ([FromServices] IOperationService bookService,
     return Results.Ok(lst);
 });
 
-app.MapGet("get-book/{isbn}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+app.MapGet("get-book-route/{isbn}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+{
+    var res = await bookService.GetBookSrv(isbn, cancellationToken);
+
+    return Results.Ok(res.lst);
+});
+
+app.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var res = await bookService.GetBookSrv(isbn, cancellationToken);
 
