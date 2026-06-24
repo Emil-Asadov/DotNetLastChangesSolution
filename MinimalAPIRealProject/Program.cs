@@ -27,6 +27,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 #endregion
 
+#region Minimal API Endpoints
 app.MapGet("get-all-books", async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var res = await bookService.GetBooksListSrv(cancellationToken);
@@ -75,5 +76,6 @@ app.MapPost("delete-book/{id:int}", async ([FromRoute] int id, [FromServices] IO
 
     return Results.Ok(new { ErrorCode = 0, Message = "Əməliyyat yerinə yetirildi" });
 });
+#endregion
 
 app.Run();
