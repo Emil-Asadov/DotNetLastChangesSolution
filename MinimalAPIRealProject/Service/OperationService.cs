@@ -72,13 +72,86 @@ namespace MinimalAPIRealProject.Service
                 var com = new OracleCommand
                 {
                     CommandType = CommandType.StoredProcedure,
-                    CommandText = "BNK_RBEEMIL.PKG_BOOKS.CREATE_BOOKS"
+                    CommandText = "BNK_RBEEMIL.PKG_BOOKS.CREATE_BOOK"
                 };
                 com.Parameters.Add("P_ISBN", OracleDbType.Varchar2).Value = bookRequest.Isbn;
                 com.Parameters.Add("P_TITLE", OracleDbType.Varchar2).Value = bookRequest.Title;
                 com.Parameters.Add("P_SHORT_DESCRIPTION", OracleDbType.Varchar2).Value = bookRequest.ShortDescription;
                 com.Parameters.Add("P_PAGE_COUNT", OracleDbType.Int32).Value = bookRequest.PageCount;
                 com.Parameters.Add("P_PUBLISH_DATE", OracleDbType.Date).Value = DateTime.ParseExact(bookRequest.PublishDate, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+
+                var pRes = new OracleParameter
+                {
+                    ParameterName = "RES",
+                    Direction = ParameterDirection.Output,
+                    OracleDbType = OracleDbType.Varchar2,
+                    Size = 100
+                };
+                com.Parameters.Add(pRes);
+
+                errOperation = await _dbOperation.PostData(com, cancellationToken);
+                if (string.IsNullOrWhiteSpace(errOperation))
+                    resOperation = pRes.Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                errOperation = ex.Message;
+            }
+
+            return (resOperation!, errOperation);
+        }
+
+        public async Task<(string res, string err)> UpdateBookSrv(int id, BookRequest bookRequest, CancellationToken cancellationToken)
+        {
+            var resOperation = string.Empty;
+            var errOperation = string.Empty;
+            try
+            {
+                var com = new OracleCommand
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    CommandText = "BNK_RBEEMIL.PKG_BOOKS.UPDATE_BOOK"
+                };
+                com.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
+                com.Parameters.Add("P_ISBN", OracleDbType.Varchar2).Value = bookRequest.Isbn;
+                com.Parameters.Add("P_TITLE", OracleDbType.Varchar2).Value = bookRequest.Title;
+                com.Parameters.Add("P_SHORT_DESCRIPTION", OracleDbType.Varchar2).Value = bookRequest.ShortDescription;
+                com.Parameters.Add("P_PAGE_COUNT", OracleDbType.Int32).Value = bookRequest.PageCount;
+                com.Parameters.Add("P_PUBLISH_DATE", OracleDbType.Date).Value = DateTime.ParseExact(bookRequest.PublishDate, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+
+                var pRes = new OracleParameter
+                {
+                    ParameterName = "RES",
+                    Direction = ParameterDirection.Output,
+                    OracleDbType = OracleDbType.Varchar2,
+                    Size = 100
+                };
+                com.Parameters.Add(pRes);
+
+                errOperation = await _dbOperation.PostData(com, cancellationToken);
+                if (string.IsNullOrWhiteSpace(errOperation))
+                    resOperation = pRes.Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                errOperation = ex.Message;
+            }
+
+            return (resOperation!, errOperation);
+        }
+
+        public async Task<(string res, string err)> DeleteBookSrv(int id, CancellationToken cancellationToken)
+        {
+            var resOperation = string.Empty;
+            var errOperation = string.Empty;
+            try
+            {
+                var com = new OracleCommand
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    CommandText = "BNK_RBEEMIL.PKG_BOOKS.DELETE_BOOK"
+                };
+                com.Parameters.Add("P_ID", OracleDbType.Int32).Value = id;
 
                 var pRes = new OracleParameter
                 {

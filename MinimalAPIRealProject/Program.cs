@@ -44,4 +44,22 @@ app.MapPost("create-book", async ([FromBody] BookRequest bookRequest, [FromServi
     return Results.Ok(new { ErrorCode = 0, Message = "Əməliyyat yerinə yetirildi" });
 });
 
+app.MapPost("update-book/{id:int}", async ([FromRoute] int id, [FromBody] BookRequest bookRequest, [FromServices] OperationService bookService, CancellationToken cancellationToken) =>
+{
+    var resPost = await bookService.UpdateBookSrv(id, bookRequest, cancellationToken);
+    if (!string.IsNullOrWhiteSpace(resPost.err))
+        return Results.BadRequest(resPost.err);
+
+    return Results.Ok(new { ErrorCode = 0, Message = "Əməliyyat yerinə yetirildi" });
+});
+
+app.MapPost("delete-book/{id:int}", async ([FromRoute] int id, [FromServices] OperationService bookService, CancellationToken cancellationToken) =>
+{
+    var resPost = await bookService.DeleteBookSrv(id, cancellationToken);
+    if (!string.IsNullOrWhiteSpace(resPost.err))
+        return Results.BadRequest(resPost.err);
+
+    return Results.Ok(new { ErrorCode = 0, Message = "Əməliyyat yerinə yetirildi" });
+});
+
 app.Run();
