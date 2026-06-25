@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MinimalAPIRealProject.DB;
 using MinimalAPIRealProject.FluentValidation;
 using MinimalAPIRealProject.Models.Config;
@@ -20,6 +22,24 @@ builder.Services.AddScoped<DbConnect>();
 builder.Services.AddScoped<DbOperation>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
 builder.Services.AddScoped<IOperationService, OperationService>();
+builder.Services.AddScoped<JwtProvider>();
+#endregion
+
+#region Authentication and Authorization
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        ValidIssuer = "Emil Asadov",
+        ValidAudience = "Emil Asadov",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my secret key my secret key my secret key my secret key my secret key"))
+    };
+});
+builder.Services.AddAuthorization();
 #endregion
 
 var app = builder.Build();
@@ -30,6 +50,13 @@ app.UseSwaggerUI();
 #endregion
 
 #region Minimal API Endpoints
+app.MapGet("get-token", ([FromServices] JwtProvider jwtProvider) =>
+{
+    var token = jwtProvider.CreateToken();
+
+    return Results.Ok(new { Token = token });
+});
+
 app.MapGet("get-all-books", async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var res = await bookService.GetBooksListSrv(cancellationToken);
@@ -58,7 +85,7 @@ app.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [Fro
     return Results.Ok(res.lst);
 });
 
-app.MapPost("create-book", async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+app.MapPost("create-book", [Authorize] async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var validator = new BookValidator();
     var validationResult = validator.Validate(bookRequest);
