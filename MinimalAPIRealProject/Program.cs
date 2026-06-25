@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MinimalAPIRealProject.DB;
+using MinimalAPIRealProject.FluentValidation;
 using MinimalAPIRealProject.Models.Config;
 using MinimalAPIRealProject.Models.Entity;
 using MinimalAPIRealProject.Repository;
 using MinimalAPIRealProject.Service;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,7 @@ app.MapGet("get-all-books", async ([FromServices] IOperationService bookService,
     return Results.Ok(lst);
 });
 
-app.MapGet("get-book-route/{isbn}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+app.MapGet("get-book-route/{isbn:length(6):regex(^[0-9-]+$)}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var res = await bookService.GetBookSrv(isbn, cancellationToken);
 
@@ -45,6 +47,12 @@ app.MapGet("get-book-route/{isbn}", async ([FromRoute] string isbn, [FromService
 
 app.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
+    var inputParam = new InputParam(Isbn: isbn);
+    var validator = new InputParamValidator();
+    var validationResult = validator.Validate(inputParam);
+    if (!validationResult.IsValid)
+        return Results.BadRequest(validationResult.Errors.Select(s => s.ErrorMessage));
+
     var res = await bookService.GetBookSrv(isbn, cancellationToken);
 
     return Results.Ok(res.lst);
@@ -52,6 +60,11 @@ app.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [Fro
 
 app.MapPost("create-book", async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
+    var validator = new BookValidator();
+    var validationResult = validator.Validate(bookRequest);
+    if (!validationResult.IsValid)
+        return Results.BadRequest(validationResult.Errors.Select(s => s.ErrorMessage));
+
     var resPost = await bookService.PostBookSrv(bookRequest, cancellationToken);
     if (!string.IsNullOrWhiteSpace(resPost.err))
         return Results.BadRequest(resPost.err);
@@ -61,6 +74,11 @@ app.MapPost("create-book", async ([FromBody] BookRequest bookRequest, [FromServi
 
 app.MapPost("update-book/{id:int}", async ([FromRoute] int id, [FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
+    var validator = new BookValidator();
+    var validationResult = validator.Validate(bookRequest);
+    if (!validationResult.IsValid)
+        return Results.BadRequest(validationResult.Errors.Select(s => s.ErrorMessage));
+
     var resPost = await bookService.UpdateBookSrv(id, bookRequest, cancellationToken);
     if (!string.IsNullOrWhiteSpace(resPost.err))
         return Results.BadRequest(resPost.err);
