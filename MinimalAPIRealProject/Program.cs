@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MinimalAPIRealProject.DB;
@@ -18,6 +19,7 @@ builder.Services.AddSwaggerGen();
 
 #region DI
 builder.Services.Configure<DbConfigRecord>(builder.Configuration.GetSection($"DbConfiguration")); //Prod baza- Prod; Test baza- Test
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection($"Jwt")); //Prod baza- Prod; Test baza- Test
 builder.Services.AddScoped<DbConnect>();
 builder.Services.AddScoped<DbOperation>();
 builder.Services.AddScoped<IOperationRepository, OperationRepository>();
@@ -26,7 +28,7 @@ builder.Services.AddScoped<JwtProvider>();
 #endregion
 
 #region Authentication and Authorization
-builder.Services.AddAuthentication().AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new()
     {
@@ -34,9 +36,10 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
         ValidateAudience = true,
         ValidateIssuerSigningKey = true,
         ValidateLifetime = true,
-        ValidIssuer = "Emil Asadov",
-        ValidAudience = "Emil Asadov",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my secret key my secret key my secret key my secret key my secret key"))
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        ClockSkew = TimeSpan.Zero
     };
 });
 builder.Services.AddAuthorization();
@@ -50,14 +53,18 @@ app.UseSwaggerUI();
 #endregion
 
 #region Minimal API Endpoints
-app.MapGet("get-token", ([FromServices] JwtProvider jwtProvider) =>
+app.MapGet("get-token", async ([FromBody] UserRequest apiUser, [FromServices] IOperationService bookService, [FromServices] JwtProvider jwtProvider, CancellationToken cancellationToken) =>
 {
-    var token = jwtProvider.CreateToken();
+    var userRes = await bookService.CheckUserSrv(apiUser, cancellationToken);
+    if (userRes.res is null)
+        return Results.NotFound(new { Message = "User not found" });
+
+    var token = jwtProvider.CreateToken(userRes.res);
 
     return Results.Ok(new { Token = token });
 });
 
-app.MapGet("get-all-books", async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+app.MapGet("get-all-books", [Authorize(Roles = "Admin,Guest")] async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var res = await bookService.GetBooksListSrv(cancellationToken);
     var lst = res.lst.Values.ToList();
@@ -85,7 +92,7 @@ app.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [Fro
     return Results.Ok(res.lst);
 });
 
-app.MapPost("create-book", [Authorize] async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+app.MapPost("create-book", [Authorize(Roles = "Admin")] async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
 {
     var validator = new BookValidator();
     var validationResult = validator.Validate(bookRequest);

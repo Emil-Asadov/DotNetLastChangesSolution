@@ -166,5 +166,27 @@ namespace MinimalAPIRealProject.Service
 
             return (resOperation!, errOperation);
         }
+
+        public async Task<(UserDto res, string err)> CheckUserSrv(UserRequest userRequest, CancellationToken cancellationToken)
+        {
+            UserDto cls = null!;
+            var errOperation = string.Empty;
+            var operationDtoCollection = await operationRepository.GetUserRepo(userRequest, cancellationToken);
+            errOperation = operationDtoCollection.err;
+            if (!string.IsNullOrEmpty(errOperation))
+                return (cls, errOperation);
+
+            if (operationDtoCollection.userResponse is not null)
+            {
+                cls = new UserDto
+                (
+                    Name: operationDtoCollection.userResponse.Name,
+                    Surname: operationDtoCollection.userResponse.Surname,
+                    Role: operationDtoCollection.userResponse.Role
+                );
+            }
+
+            return (cls, errOperation);
+        }
     }
 }

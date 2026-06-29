@@ -6,5 +6,6 @@ namespace MinimalAPIRealProject.Repository
     {
         Task<(Dictionary<int, BookResponse> lst, string err)> GetBooksListRepo(CancellationToken cancellationToken);
         Task<(BookResponse lst, string err)> GetBookRepo(string isbn, CancellationToken cancellationToken);
+        Task<(UserResponse userResponse, string err)> GetUserRepo(UserRequest userRequest, CancellationToken cancellationToken);
     }
 }

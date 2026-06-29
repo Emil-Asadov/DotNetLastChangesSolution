@@ -8,6 +8,7 @@ namespace MinimalAPIRealProject.Service
         Task<(Dictionary<int, BookDto> lst, string err)> GetBooksListSrv(CancellationToken cancellationToken);
         Task<(BookDto lst, string err)> GetBookSrv(string isbn, CancellationToken cancellationToken);
         Task<(string res, string err)> PostBookSrv(BookRequest bookRequest, CancellationToken cancellationToken);
+        Task<(UserDto res, string err)> CheckUserSrv(UserRequest userRequest, CancellationToken cancellationToken);
         Task<(string res, string err)> UpdateBookSrv(int id, BookRequest bookRequest, CancellationToken cancellationToken);
         Task<(string res, string err)> DeleteBookSrv(int id, CancellationToken cancellationToken);
     }

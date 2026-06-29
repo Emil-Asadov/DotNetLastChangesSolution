@@ -90,5 +90,65 @@ namespace MinimalAPIRealProject.Repository
 
             return (cls, errOut);
         }
+
+        public async Task<(UserResponse userResponse, string err)> GetUserRepo(UserRequest userRequest, CancellationToken cancellationToken)
+        {
+            UserResponse cls = null!;
+            var dtOut = new DataTable();
+            var errOut = string.Empty;
+            var query = "BNK_RBEEMIL.PKG_BOOKS.GET_USER";
+            try
+            {
+                var vRes = new OracleParameter
+                {
+                    ParameterName = "V_RET",
+                    OracleDbType = OracleDbType.RefCursor,
+                    Direction = ParameterDirection.ReturnValue
+                };
+
+                var pName = new OracleParameter
+                {
+                    ParameterName = "P_NAME",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Value = userRequest.Name
+                };
+
+                var pSurname = new OracleParameter
+                {
+                    ParameterName = "P_SURNAME",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Value = userRequest.Surname
+                };
+
+                var pPassword = new OracleParameter
+                {
+                    ParameterName = "P_PASSWORD",
+                    OracleDbType = OracleDbType.Varchar2,
+                    Value = userRequest.Password
+                };
+
+                (dtOut, errOut) = await dbOperation.GetData(query, new OracleParameter[] { vRes, pName, pSurname, pPassword }, cancellationToken);
+                if (string.IsNullOrWhiteSpace(errOut))
+                {
+                    if (!dtOut.Rows.Count.Equals(0))
+                    {
+                        cls = new UserResponse
+                           (
+                                  Id: Convert.ToInt32(dtOut.Rows[0].Field<decimal>("ID")),
+                                  Name: dtOut.Rows[0].Field<string>("NAME")!,
+                                  Surname: dtOut.Rows[0].Field<string>("SURNAME")!,
+                                  Role: dtOut.Rows[0].Field<string>("ROLE")!,
+                                  Password: dtOut.Rows[0].Field<string>("PASSWORD")!
+                           );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errOut = ex.Message;
+            }
+
+            return (cls, errOut);
+        }
     }
 }
