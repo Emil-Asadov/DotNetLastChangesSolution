@@ -54,8 +54,8 @@ app.UseSwaggerUI();
 #endregion
 
 #region Minimal API Extension Endpoints
-//app.UseBookEndpoints(); //Taner Saydam(Udemy)
-app.MapGroup("/api/Book/").MapBookEndpoints(); //Patrick God
+app.UseBookEndpoints(); //Taner Saydam(Udemy)
+//app.MapGroup("/api/Book/").MapBookEndpoints(); //Patrick God
 #endregion
 
 

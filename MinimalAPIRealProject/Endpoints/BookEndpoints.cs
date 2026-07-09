@@ -10,8 +10,10 @@ namespace MinimalAPIRealProject.Endpoints
     {
         public static void UseBookEndpoints(this IEndpointRouteBuilder app)
         {
+            var group = app.MapGroup("/api/Book/"); //https://www.youtube.com/watch?v=fQAC4TjwD0Y
+
             #region Minimal API Endpoints
-            app.MapGet("/api/Book/get-token", async ([FromBody] UserRequest apiUser, [FromServices] IOperationService bookService, [FromServices] JwtProvider jwtProvider, CancellationToken cancellationToken) =>
+            group.MapGet("get-token", async ([FromBody] UserRequest apiUser, [FromServices] IOperationService bookService, [FromServices] JwtProvider jwtProvider, CancellationToken cancellationToken) =>
             {
                 var userRes = await bookService.CheckUserSrv(apiUser, cancellationToken);
                 if (userRes.res is null)
@@ -22,7 +24,7 @@ namespace MinimalAPIRealProject.Endpoints
                 return Results.Ok(new { Token = token });
             }).WithTags("Auth");
 
-            app.MapGet("/api/Book/get-all-books", [Authorize(Roles = "Admin,Guest")] async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapGet("get-all-books", [Authorize(Roles = "Admin,Guest")] async ([FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var res = await bookService.GetBooksListSrv(cancellationToken);
                 var lst = res.lst.Values.ToList();
@@ -30,14 +32,14 @@ namespace MinimalAPIRealProject.Endpoints
                 return Results.Ok(lst);
             }).WithTags("Books");
 
-            app.MapGet("/api/Book/get-book-route/{isbn:length(6):regex(^[0-9-]+$)}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapGet("get-book-route/{isbn:length(6):regex(^[0-9-]+$)}", async ([FromRoute] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var res = await bookService.GetBookSrv(isbn, cancellationToken);
 
                 return Results.Ok(res.lst);
             }).WithName("get-book-isbn").WithTags("Books");
 
-            app.MapGet("/api/Book/get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapGet("get-book-query", async ([FromQuery(Name = "isbn")] string isbn, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var inputParam = new InputParam(Isbn: isbn);
                 var validator = new InputParamValidator();
@@ -50,7 +52,7 @@ namespace MinimalAPIRealProject.Endpoints
                 return Results.Ok(res.lst);
             }).WithTags("Books");
 
-            app.MapPost("/api/Book/create-book", [Authorize(Roles = "Admin")] async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapPost("create-book", [Authorize(Roles = "Admin")] async ([FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var validator = new BookValidator();
                 var validationResult = validator.Validate(bookRequest);
@@ -66,7 +68,7 @@ namespace MinimalAPIRealProject.Endpoints
                 return Results.CreatedAtRoute("get-book-isbn", new { isbn = bookRequest.Isbn });
             }).WithTags("Books");
 
-            app.MapPost("/api/Book/update-book/{id:int}", async ([FromRoute] int id, [FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapPost("update-book/{id:int}", async ([FromRoute] int id, [FromBody] BookRequest bookRequest, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var validator = new BookValidator();
                 var validationResult = validator.Validate(bookRequest);
@@ -80,7 +82,7 @@ namespace MinimalAPIRealProject.Endpoints
                 return Results.Ok(new { ErrorCode = 0, Message = "Əməliyyat yerinə yetirildi" });
             }).WithTags("Books");
 
-            app.MapPost("/api/Book/delete-book/{id:int}", async ([FromRoute] int id, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
+            group.MapPost("delete-book/{id:int}", async ([FromRoute] int id, [FromServices] IOperationService bookService, CancellationToken cancellationToken) =>
             {
                 var resPost = await bookService.DeleteBookSrv(id, cancellationToken);
                 if (!string.IsNullOrWhiteSpace(resPost.err))
